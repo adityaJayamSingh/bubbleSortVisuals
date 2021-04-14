@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title></title>
+</head>
+<body>
+	<button id ="button">SORT</button>
+	<canvas>
+		
+	</canvas>
+</body>
+
+<script type="text/javascript">
+
+	var canvas=document.querySelector('canvas');
+	var button=document.getElementById('button');
+	canvas.style.background="black";
+	var c=canvas.getContext('2d');
+	canvas.width=window.innerWidth;
+	canvas.height=window.innerHeight;
+
+	var arr=[];
+	for(i=0;i<canvas.width;i++)
+	{
+		arr[i]=Math.random()*innerHeight;
+	}
+	console.log(arr)
+
+	function draw()
+	{
+		for(i=0;i<canvas.width;i++)
+		{
+		c.beginPath();
+		c.moveTo(i,canvas.height);
+		c.lineTo(i,canvas.height-arr[i]);
+		c.strokeStyle= "rgba(255,255,255)";
+		c.stroke();
+		}
+	}
+	draw();
+
+	button.addEventListener('click',function sort()
+		{
+			//alert("ho");
+			for(i=0;i<canvas.width;i++)
+			{
+				for(j=0;j<canvas.width-i-1;j++)
+				{
+					if(arr[j]>arr[j+1])
+					{
+						temp=arr[j];
+						arr[j]=arr[j+1];
+						arr[j+1]=temp;
+						c.clearRect(0,0,canvas.width,canvas.height);
+						draw();
+					}
+				}
+			}
+			requestAnimationFrame(sort);
+		});
+
+
+</script>
+</html>
